@@ -146,67 +146,51 @@ input is a list of string, and the return will be a list with all binary values 
 
 ## Example
 
-In this turtorial, I will build a autoencoder network 
+In this turtorial, I will build a autoencoder with the Neuralnetwork class and use it to show the training process
 
 * Initialization
 
 Load packages
 
-    import glob
-    import pandas as pd
-    import numpy as np
-    import os 
-    import sys
-    from algs import Ligand, HierarchicalClustering, PartitionClustering,Silhouette_Coefficient, ClusterNode, getEuclidean, Rand_Index
-    import matplotlib.pyplot as plt
-    from __future__ import print_function
-    import time
-    import numpy as np
-    import pandas as pd
-    from sklearn.datasets import fetch_openml
-    from sklearn.decomposition import PCA
-    from sklearn.manifold import TSNE
-    %matplotlib inline
-    import matplotlib.pyplot as plt
-    from mpl_toolkits.mplot3d import Axes3D
-    import seaborn as sns
-    import json
+		import glob
+		import os
+		import sys
+		import pandas as pd
+		import numpy as np
+		from random import sample
+		from fasta_reader import read_fasta
+		from NN import NeuralNetwork as NeuralNetwork, rand, KFold_split
+		import random
+		from i_o import encoder
 
 
-Take a subset of all the ligands and perform kmeans and hirarchical clustering
+stimutate a 8 elements vector randomly to build the training set
 
-    csv = pd.read_csv('../ligand_information.csv', index_col= False)
-    Data = list(np.random.randint(1,csv.shape[0],size=100))
-    Ligands = []
-    for i in Data:
+		empty_vec = np.zeros(8)
+		indexs = range(0,80)
 
-        a_ligand = Ligand(csv[csv.index==i])
-        Ligands.append(a_ligand)
+generate a dataset with 100 samples
 
-		
-Perform hirarchical clustering, and visualize the results
+		inputs = []
+		groundtruth = []
+		for i in range(0,8):
+		    k =i %8 
+		    vec = empty_vec.copy()
+		    vec[k] =1
 
-    Hiera_C = HierarchicalClustering(Ligands, 5)
-    results = Hiera_C.implement_viz()
-    Hiera_C.show(results, len(Ligands))
-    # run Hiera_C.implement_viz() and Hiera_C.show() to visualize the results. But this can run very slow so please use a small subset.
-    
-Perform hirarchical clustering, keams clustering
+		    inputs.append(vec)
+		    groundtruth.append(vec)
+		    
+Build and train the network
 
-    # Can use a higher 
-    Data = list(np.random.randint(1,csv.shape[0],size=1000))
-    Ligands = []
-    for i in Data:
+		Autoencoder = NeuralNetwork(input_layer=8, hidden_layer= 8, output_layer=8, batch_size= 8, print_frequence=1000, lr = 0.5)
+		Autoencoder.make_weights()
+		Autoencoder.train(inputs, groundtruth)
+   
+Viz the result
 
-        a_ligand = Ligand(csv[csv.index==i])
-        Ligands.append(a_ligand)
-    
-    
-    Hiera_C = HierarchicalClustering(Ligands, 5)
-    Hiera_C.implement()
-    
-    Kmeans_C = PartitionClustering(Ligands, 5, 10)
-    Kmeans_C.implement()
+		Autoencoder.viz()
+
     
     
 
