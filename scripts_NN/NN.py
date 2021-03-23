@@ -269,7 +269,7 @@ def AUROC_cruve(trained_NN, inputs, outputs, Fig = False):
     '''
     This function leverage the trained neurla network 
     to predict the probability of the target seuqnce is the candidate or not
-    And will draw the ROC plot 
+    And will draw the ROC plot or return the AUROC score
     '''
     results = []
     for i in range (len(inputs)):
