@@ -9,7 +9,7 @@ Implement Neuralnetwork
 - [Example](#example)
 
 ## Background
-In this assignment, I will implement a simple neural network with a input layer, a hidden layer, an output layer. Also I will write a K fold validation function and a genetic algorthim for optimization
+In this assignment, I will implement a simple neural network with an input layer, a hidden layer, an output layer. Also I will write a K fold validation function and a genetic algorthim for optimization
 
 ## Usage 
 Common neural network
@@ -60,7 +60,7 @@ input_weights: use the number of nodes in each layer to make calculation matrix 
 output_weights:  use the number of nodes in each layer to make calculation matrix for the propagation between each layer. the value was randomly initialized.
            THese two matrix will be used for matrix calculation
 ci:
-co:  THese two have the same dimension as the input_weights/output_weights, are storing the changes computed by the back propogation
+co:  These two have the same dimension as the input_weights/output_weights, are storing the changes computed by the back propogation
 
 
 #### Method:    
