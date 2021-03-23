@@ -66,11 +66,13 @@ def mutate(individual):
             individual[i] = individual[i] * (1 + 0.1*coin)
         
     return individual
+
+
 def genetic_algorithm(training_inputs, training_groundtruth, test_inputs, test_groundtruth,
                      num_population,times, invasion, hidden_nodes, lr, lr_decay, mf, batch_size, epoch):
     
     '''
-    In this function, I will perform the genetic_algorithm to find out the best combination of hyperparameters combination for the training.
+    In this function, I will perform the genetic_algorithm to find out the best combination of hyperparameters for the training.
     [training_inputs, training_groundtruth, test_inputs, test_groundtruth] is a training, testing set which are obtained for evalute the training performance.
     num_population: the number of random candidates with the random number of feathers.
     times: total times of "cross" for the parents to exchange the features which uis aiming at getting 'progeny" with the better performance.
@@ -128,7 +130,7 @@ def genetic_algorithm(training_inputs, training_groundtruth, test_inputs, test_g
         print('For the time '+str(t)+' the best candidates and the best result is')
         print(my_genome)
         print(my_phyno)
-
+      
         if t >=1:   
             if len(individuals_genom) % 2 == 0:  # add the new invasion people,
                                                  # make sure that the number is even 
@@ -153,7 +155,7 @@ def genetic_algorithm(training_inputs, training_groundtruth, test_inputs, test_g
                 NN.make_weights()
                 NN.train(training_inputs, training_groundtruth)
                 individuals_phyno.append(AUROC_cruve(NN, test_inputs, test_groundtruth, Fig=False))
-                    
+        #   
         next_generation_genom = []  
         next_generation_phyno = []
         next_generation_genom.append(my_genome)
